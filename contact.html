@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact AfyaTech — Get in Touch</title>
+  <meta name="description" content="Contact AfyaTech to request a demo, discuss a partnership, or learn more about deploying our AI health tools in your county or facility."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info-card {
+      background: var(--clr-primary);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-info-card::before {
+      content: '';
+      position: absolute;
+      right: -40px; bottom: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .contact-info-card::after {
+      content: '';
+      position: absolute;
+      right: 40px; bottom: 100px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-info-item:last-child { margin-bottom: 0; }
+    .contact-info-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.1);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--clr-accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-info-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 4px;
+    }
+    .contact-info-value {
+      font-size: .95rem;
+      color: var(--clr-white);
+      font-weight: 500;
+    }
+    .contact-info-sub {
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+      margin-top: 2px;
+    }
+    .form-card {
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-xl);
+      padding: 48px 44px;
+      box-shadow: var(--shadow-md);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23547567' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+    .submit-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 16px;
+      font-size: 1rem;
+      margin-top: 8px;
+      border-radius: var(--radius-md);
+    }
+    .office-card {
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .office-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .office-img {
+      height: 200px;
+      overflow: hidden;
+    }
+    .office-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .office-card:hover .office-img img { transform: scale(1.06); }
+    .office-body { padding: 24px; }
+    .office-city { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .office-addr { font-size: .88rem; color: var(--clr-muted); line-height: 1.6; }
+    .office-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .75rem; font-weight: 700;
+      background: var(--clr-light); color: var(--clr-secondary);
+      padding: 4px 10px; border-radius: 40px;
+      margin-bottom: 10px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 0;
+      font-size: .98rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      text-align: left;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--ff-body);
+      gap: 16px;
+    }
+    .faq-question i {
+      color: var(--clr-secondary);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .faq-question.open i { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 0 20px;
+      font-size: .92rem;
+      color: var(--clr-muted);
+      line-height: 1.7;
+    }
+    .faq-answer.open { display: block; animation: fadeIn .25s ease; }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .contact-info-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">Afya<span class="nav__logo-dot">Tech</span></a>
+      <div class="nav__links">
+        <a href="index.html"    class="nav__link">Home</a>
+        <a href="about.html"    class="nav__link">About</a>
+        <a href="services.html" class="nav__link">Services</a>
+        <a href="strategy.html" class="nav__link">AI Strategy</a>
+        <a href="contact.html"  class="nav__link nav__cta active" style="background:var(--clr-accent);color:var(--clr-dark);">Contact Us</a>
+      </div>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="strategy.html" class="nav__link">AI Strategy</a>
+      <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1576669801820-a9ab287ac2d1?w=1800&q=75');background-size:cover;background-position:center;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,26,20,.93) 0%,rgba(10,92,69,.82) 100%);"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <div class="page-hero__eyebrow"><i class="fa-solid fa-paper-plane"></i> Get in Touch</div>
+        <h1 class="page-hero__title">Let's Build Better Healthcare Together</h1>
+        <p class="page-hero__sub">Whether you're a county health department, hospital network, NGO, or research institution — we'd love to explore how AfyaTech can support your work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="reveal">
+          <div class="contact-info-card">
+            <p style="font-family:var(--ff-display);font-size:1.4rem;color:var(--clr-white);margin-bottom:8px;line-height:1.3;position:relative;z-index:2;">Contact AfyaTech</p>
+            <p style="font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:36px;position:relative;z-index:2;">Our team typically responds within one business day.</p>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <div class="contact-info-label">Headquarters</div>
+                <div class="contact-info-value">Nairobi Garage, Ngong Road</div>
+                <div class="contact-info-sub">Nairobi, Kenya · P.O. Box 12034-00100</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value">hello@afyatech.co.ke</div>
+                <div class="contact-info-sub">partnerships@afyatech.co.ke</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <div class="contact-info-label">Phone / WhatsApp</div>
+                <div class="contact-info-value">+254 700 123 456</div>
+                <div class="contact-info-sub">Mon – Fri, 8:00 AM – 6:00 PM EAT</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+              <div>
+                <div class="contact-info-label">WhatsApp Business</div>
+                <div class="contact-info-value">+254 711 987 654</div>
+                <div class="contact-info-sub">For CHW and facility support queries</div>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:28px;margin-top:8px;position:relative;z-index:2;">
+              <p style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:16px;">Follow AfyaTech</p>
+              <div style="display:flex;gap:10px;">
+                <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.9rem;transition:all .3s ease;" aria-label="Twitter" onmouseover="this.style.background='var(--clr-secondary)';this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.color='rgba(255,255,255,.7)';"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.9rem;transition:all .3s ease;" aria-label="LinkedIn" onmouseover="this.style.background='var(--clr-secondary)';this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.color='rgba(255,255,255,.7)';"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.9rem;transition:all .3s ease;" aria-label="GitHub" onmouseover="this.style.background='var(--clr-secondary)';this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.color='rgba(255,255,255,.7)';"><i class="fa-brands fa-github"></i></a>
+                <a href="#" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.9rem;transition:all .3s ease;" aria-label="YouTube" onmouseover="this.style.background='var(--clr-secondary)';this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.color='rgba(255,255,255,.7)';"><i class="fa-brands fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick links -->
+          <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <a href="services.html" class="card" style="padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;">
+              <i class="fa-solid fa-grid-2" style="font-size:1.2rem;color:var(--clr-secondary);"></i>
+              <span style="font-size:.88rem;font-weight:600;color:var(--clr-text);">Our Services</span>
+            </a>
+            <a href="strategy.html" class="card" style="padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;">
+              <i class="fa-solid fa-book-open" style="font-size:1.2rem;color:var(--clr-secondary);"></i>
+              <span style="font-size:.88rem;font-weight:600;color:var(--clr-text);">AI Strategy</span>
+            </a>
+            <a href="about.html" class="card" style="padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;">
+              <i class="fa-solid fa-users" style="font-size:1.2rem;color:var(--clr-secondary);"></i>
+              <span style="font-size:.88rem;font-weight:600;color:var(--clr-text);">Meet the Team</span>
+            </a>
+            <a href="about.html" class="card" style="padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;">
+              <i class="fa-solid fa-handshake" style="font-size:1.2rem;color:var(--clr-secondary);"></i>
+              <span style="font-size:.88rem;font-weight:600;color:var(--clr-text);">Partnerships</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="form-card reveal" data-delay="150">
+          <h2 style="font-size:1.5rem;margin-bottom:6px;">Send Us a Message</h2>
+          <p style="font-size:.9rem;color:var(--clr-muted);margin-bottom:32px;">Fill in the form below and a member of our team will be in touch shortly.</p>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="first-name">First Name <span style="color:#A32D2D;">*</span></label>
+                <input class="form-input" type="text" id="first-name" name="first-name" placeholder="e.g. Amara" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="last-name">Last Name <span style="color:#A32D2D;">*</span></label>
+                <input class="form-input" type="text" id="last-name" name="last-name" placeholder="e.g. Njoki" required/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address <span style="color:#A32D2D;">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@organisation.org" required/>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone / WhatsApp</label>
+                <input class="form-input" type="tel" id="phone" name="phone" placeholder="+254 700 000 000"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="organisation">Organisation</label>
+                <input class="form-input" type="text" id="organisation" name="organisation" placeholder="County Health Dept, NGO…"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="enquiry-type">Enquiry Type <span style="color:#A32D2D;">*</span></label>
+              <select class="form-input form-select" id="enquiry-type" name="enquiry-type" required>
+                <option value="" disabled selected>Select the nature of your enquiry</option>
+                <option value="demo">Request a Product Demo</option>
+                <option value="partnership">County / Facility Partnership</option>
+                <option value="research">Research Collaboration</option>
+                <option value="chw">CHW Programme Integration</option>
+                <option value="press">Press / Media Enquiry</option>
+                <option value="careers">Careers &amp; Recruitment</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="county">County / Region</label>
+              <select class="form-input form-select" id="county" name="county">
+                <option value="" disabled selected>Select your county or region</option>
+                <option>Nairobi</option><option>Mombasa</option><option>Kisumu</option>
+                <option>Nakuru</option><option>Eldoret / Uasin Gishu</option>
+                <option>Meru</option><option>Nyeri</option><option>Kilifi</option>
+                <option>Kwale</option><option>Homa Bay</option><option>Machakos</option>
+                <option>Other Kenya County</option><option>Uganda</option>
+                <option>Tanzania</option><option>Rwanda</option><option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Message <span style="color:#A32D2D;">*</span></label>
+              <textarea class="form-input form-textarea" id="message" name="message" placeholder="Tell us about your programme, the population you serve, your connectivity context, and what you're hoping AfyaTech can help with…" required></textarea>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;">
+              <input type="checkbox" id="consent" name="consent" style="width:16px;height:16px;margin-top:3px;accent-color:var(--clr-secondary);flex-shrink:0;" required/>
+              <label for="consent" style="font-size:.85rem;color:var(--clr-muted);line-height:1.55;">I consent to AfyaTech storing and processing my information to respond to this enquiry in accordance with the <a href="#" style="color:var(--clr-secondary);text-decoration:underline;">Privacy Policy</a>.</label>
+            </div>
+
+            <button type="submit" class="btn btn--primary submit-btn">
+              <i class="fa-solid fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFICES -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header--center mb-48 reveal">
+        <p class="section-eyebrow"><i class="fa-solid fa-map-pin"></i> Where We Work</p>
+        <h2 class="section-title">Our Offices Across East Africa</h2>
+        <p class="section-sub">AfyaTech is headquartered in Nairobi, with field offices in Kisumu and Mombasa and a growing regional presence.</p>
+      </div>
+      <div class="grid-3">
+        <div class="office-card reveal" data-delay="0">
+          <div class="office-img"><img src="https://images.unsplash.com/photo-1611348586804-61bf6c080437?w=600&q=80" alt="Nairobi skyline" loading="lazy"/></div>
+          <div class="office-body">
+            <div class="office-badge"><i class="fa-solid fa-star"></i> Headquarters</div>
+            <div class="office-city">Nairobi</div>
+            <div class="office-addr">Nairobi Garage, Ngong Road<br/>Nairobi, Kenya 00100<br/>+254 700 123 456</div>
+          </div>
+        </div>
+        <div class="office-card reveal" data-delay="100">
+          <div class="office-img"><img src="https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=600&q=80" alt="Kisumu lake view" loading="lazy"/></div>
+          <div class="office-body">
+            <div class="office-badge"><i class="fa-solid fa-location-dot"></i> Field Office</div>
+            <div class="office-city">Kisumu</div>
+            <div class="office-addr">Mega City Mall, 2nd Floor<br/>Kisumu, Kenya 40100<br/>+254 720 456 789</div>
+          </div>
+        </div>
+        <div class="office-card reveal" data-delay="200">
+          <div class="office-img"><img src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=600&q=80" alt="Mombasa coast" loading="lazy"/></div>
+          <div class="office-body">
+            <div class="office-badge"><i class="fa-solid fa-location-dot"></i> Field Office</div>
+            <div class="office-city">Mombasa</div>
+            <div class="office-addr">Mombasa Road Business Park<br/>Mombasa, Kenya 80100<br/>+254 730 789 012</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;">
+        <div class="reveal">
+          <p class="section-eyebrow"><i class="fa-solid fa-circle-question"></i> FAQs</p>
+          <h2 class="section-title">Common Questions</h2>
+          <p>Can't find what you're looking for? Reach out at <a href="mailto:hello@afyatech.co.ke" style="color:var(--clr-secondary);">hello@afyatech.co.ke</a> and we'll get back to you within one business day.</p>
+          <div style="margin-top:40px;">
+            <img src="https://images.unsplash.com/photo-1559839914-17aae19cec71?w=700&q=80" alt="AfyaTech support team" loading="lazy" style="width:100%;height:280px;object-fit:cover;border-radius:var(--radius-xl);"/>
+          </div>
+        </div>
+        <div class="reveal" data-delay="150">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              What types of organisations does AfyaTech partner with?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">We partner with county health departments, public and mission hospitals, NGOs working in community health, research institutions, and international development organisations. If you serve patients in East Africa, we want to talk.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Does AfyaTech work in low-connectivity rural areas?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">Yes. Our CHW Field Support Agent and Clinical Documentation AI are both designed with offline-first capability. Core features work on 2G connections, and the app caches data locally for areas with intermittent connectivity.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Is AfyaTech compliant with Kenyan health data regulations?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">Yes. AfyaTech is fully compliant with the Kenya Data Protection Act 2019 and operates in active dialogue with KMPDC and the Ministry of Health. All patient data is stored on Kenya-domiciled servers. We have an appointed and registered Data Protection Officer with the ODPC.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Can AfyaTech's AI diagnose patients?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">No — and this is by design. All AfyaTech AI tools are clinical decision support systems. Final diagnosis and treatment decisions are always made by a licensed clinician. Our AI supports and extends clinician capacity, never replaces clinical judgment.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              What languages does AfyaTech support?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">AfyaTech currently supports Swahili, English, and Kikuyu. We are actively developing support for additional Kenyan languages including Dholuo, Kamba, and Kalenjin, with a target of 8 languages by 2027.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              How long does deployment take?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">A standard pilot deployment — covering the Intake and Patient Follow-up Agents for up to 200 CHWs — can be operational within 6 weeks of signing a partnership agreement. Full multi-county rollouts with EHR integration typically take 3–6 months.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Is there a cost for county health departments?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-answer">We operate a subsidised pricing model for public-sector county health departments and NGOs serving rural populations. Commercial pricing applies to private hospital networks. Contact our partnerships team at partnerships@afyatech.co.ke for a tailored quote.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section" style="padding:80px 0;">
+    <div class="container" style="position:relative;z-index:2;text-align:center;">
+      <p class="section-eyebrow" style="justify-content:center;color:var(--clr-accent);"><i class="fa-solid fa-rocket"></i> Start the Conversation</p>
+      <h2 class="section-title section-title--white mb-16">Your Community Deserves Better Healthcare Access</h2>
+      <p class="section-sub section-sub--white mb-32" style="margin:0 auto 32px;">Every day without better AI tools is another day of missed diagnoses, preventable deteriorations, and overstretched CHWs. Let's change that — together.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="#contact-form" class="btn btn--gold"><i class="fa-solid fa-paper-plane"></i> Send a Message</a>
+        <a href="services.html" class="btn btn--outline"><i class="fa-solid fa-grid-2"></i> Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Afya<span style="color:var(--clr-accent);">Tech</span></div>
+          <p>AI-powered healthcare for East Africa. Bridging the gap between communities and quality clinical care — one interaction at a time.</p>
+          <div class="footer__socials" style="margin-top:24px;">
+            <a href="#" class="footer__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="footer__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer__social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="footer__social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div><p class="footer__col-title">Company</p><a href="about.html" class="footer__link">About AfyaTech</a><a href="about.html#team" class="footer__link">Our Team</a><a href="contact.html" class="footer__link">Careers</a><a href="contact.html" class="footer__link">Press</a></div>
+        <div><p class="footer__col-title">Solutions</p><a href="services.html" class="footer__link">Clinical Documentation</a><a href="services.html" class="footer__link">Triage AI</a><a href="services.html" class="footer__link">Patient Education</a><a href="services.html" class="footer__link">CHW Support</a></div>
+        <div><p class="footer__col-title">Resources</p><a href="strategy.html" class="footer__link">AI Strategy</a><a href="strategy.html" class="footer__link">Ethics Charter</a><a href="contact.html" class="footer__link">Documentation</a><a href="contact.html" class="footer__link">Contact</a></div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 AfyaTech Ltd. Registered in Nairobi, Kenya. All rights reserved.</p>
+        <div style="display:flex;gap:24px;"><a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Privacy Policy</a><a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-question').forEach(b => {
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    }
+  </script>
+</body>
+</html>

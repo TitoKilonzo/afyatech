@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AfyaTech AI Strategy — Four-Domain Capstone Framework</title>
+  <meta name="description" content="AfyaTech's comprehensive AI strategy spanning precision prompting, AI fluency, ethical governance, and agent orchestration across East African healthcare."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .terrain-nav {
+      position: sticky;
+      top: var(--nav-h);
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--clr-border);
+      z-index: 100;
+      padding: 0;
+    }
+    .terrain-nav__inner {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+    }
+    .terrain-nav__tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 16px 24px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--clr-muted);
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition);
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .terrain-nav__tab:hover { color: var(--clr-text); }
+    .terrain-nav__tab.active { color: var(--clr-primary); border-bottom-color: var(--clr-primary); }
+    .terrain-section { display: none; padding: 80px 0; }
+    .terrain-section.active { display: block; animation: fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .prompt-block {
+      background: #071A14;
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin: 20px 0 28px;
+    }
+    .prompt-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--clr-secondary);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .prompt-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--clr-secondary); }
+    .prompt-code {
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      color: #A8D5C0;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .prompt-var { color: var(--clr-accent); }
+
+    .capability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .capability-box {
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+    }
+    .capability-box--can  { background: #E1F5EE; border: 1px solid #A0D9C2; }
+    .capability-box--cant { background: #FBEAEA; border: 1px solid #E8B4B4; }
+    .capability-box__title { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .capability-box--can  .capability-box__title { color: #085041; }
+    .capability-box--cant .capability-box__title { color: #7C1F1F; }
+    .capability-tag {
+      display: inline-block;
+      font-size: .78rem; font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 40px;
+      margin: 3px;
+    }
+    .tag-can  { background: rgba(29,158,117,.15); color: #085041; }
+    .tag-cant { background: rgba(163,45,45,.12); color: #7C1F1F; }
+
+    .ethics-pillar {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .ethics-pillar:last-child { border-bottom: none; }
+    .ethics-num {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--clr-border);
+      line-height: 1;
+    }
+    .ethics-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: var(--clr-text); }
+    .ethics-text  { font-size: .92rem; color: var(--clr-muted); line-height: 1.7; }
+
+    .risk-row {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .risk-row:last-child { border-bottom: none; }
+    .risk-badge-sm {
+      font-size: .72rem; font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 40px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .risk-low  { background: #E1F5EE; color: #085041; }
+    .risk-med  { background: #FAEEDA; color: #633806; }
+    .risk-high { background: #FBEAEA; color: #7C1F1F; }
+    .risk-title { font-size: .92rem; font-weight: 600; margin-bottom: 4px; color: var(--clr-text); }
+    .risk-text  { font-size: .85rem; color: var(--clr-muted); line-height: 1.6; }
+
+    .agent-card {
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 12px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .agent-card:hover { border-color: var(--clr-secondary); box-shadow: var(--shadow-md); }
+    .agent-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+    .agent-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .agent-meta-name { font-size: .95rem; font-weight: 600; margin-bottom: 3px; color: var(--clr-text); }
+    .agent-meta-role { font-size: .8rem; color: var(--clr-muted); }
+    .agent-desc { font-size: .88rem; color: var(--clr-muted); line-height: 1.65; margin-bottom: 14px; }
+
+    .flow-chart {
+      display: flex; flex-direction: column; align-items: stretch;
+      background: var(--clr-light);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      gap: 6px;
+    }
+    .flow-node {
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--clr-text);
+      text-align: center;
+    }
+    .flow-node--teal  { background: #E1F5EE; border-color: #5DCAA5; color: #085041; }
+    .flow-node--amber { background: #FAEEDA; border-color: #EF9F27; color: #633806; }
+    .flow-node--blue  { background: #E6F1FB; border-color: #85B7EB; color: #0C447C; }
+    .flow-node--green { background: #EAF3DE; border-color: #97C459; color: #3B6D11; }
+    .flow-arrow { text-align: center; font-size: 1.2rem; color: var(--clr-secondary); line-height: 1.2; }
+    .flow-checkpoint {
+      background: #FDF8E6; border: 1px solid #E8C84A;
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      font-size: .82rem; font-weight: 600; color: #6B4B00;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .checklist-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--clr-border);
+      font-size: .92rem;
+      color: var(--clr-muted);
+      line-height: 1.5;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item i.fa-circle-check { color: var(--clr-secondary); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    @media (max-width: 768px) {
+      .capability-grid { grid-template-columns: 1fr; }
+      .prompt-block { padding: 20px; }
+      .prompt-code { font-size: .78rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">Afya<span class="nav__logo-dot">Tech</span></a>
+      <div class="nav__links">
+        <a href="index.html"    class="nav__link">Home</a>
+        <a href="about.html"    class="nav__link">About</a>
+        <a href="services.html" class="nav__link">Services</a>
+        <a href="strategy.html" class="nav__link active">AI Strategy</a>
+        <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+      </div>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="strategy.html" class="nav__link">AI Strategy</a>
+      <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1800&q=75');background-size:cover;background-position:center;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,26,20,.94) 0%,rgba(10,92,69,.82) 100%);"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <div class="page-hero__eyebrow"><i class="fa-solid fa-map"></i> AI Safari Capstone · AfyaTech</div>
+        <h1 class="page-hero__title">Comprehensive AI Strategy</h1>
+        <p class="page-hero__sub">A four-domain framework spanning precision prompting, AI fluency, ethical governance, and multi-agent orchestration — built for East African healthcare reality.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
+          <span class="pill pill--green"><i class="fa-solid fa-leaf"></i> Savannah</span>
+          <span class="pill pill--green"><i class="fa-solid fa-brain"></i> Tsavo</span>
+          <span class="pill pill--gold"><i class="fa-solid fa-scale-balanced"></i> Ethical Savannah</span>
+          <span class="pill pill--blue"><i class="fa-solid fa-robot"></i> Agentic Pride</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY TERRAIN NAV -->
+  <div class="terrain-nav">
+    <div class="container">
+      <div class="terrain-nav__inner">
+        <button class="terrain-nav__tab active" data-terrain="savannah"><i class="fa-solid fa-leaf"></i> Savannah — Prompting</button>
+        <button class="terrain-nav__tab" data-terrain="tsavo"><i class="fa-solid fa-brain"></i> Tsavo — AI Fluency</button>
+        <button class="terrain-nav__tab" data-terrain="ethics" id="ethics"><i class="fa-solid fa-scale-balanced"></i> Ethical Savannah</button>
+        <button class="terrain-nav__tab" data-terrain="agents"><i class="fa-solid fa-robot"></i> Agentic Pride</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERRAIN 1: SAVANNAH -->
+  <div class="terrain-section active" id="terrain-savannah">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;margin-bottom:64px;">
+        <div>
+          <p class="section-eyebrow"><i class="fa-solid fa-leaf"></i> Terrain 1 · Savannah</p>
+          <h2 class="section-title">Precision Prompting for Clinical Workflows</h2>
+          <p class="mb-16">The Savannah terrain established that AI output quality is a direct function of prompt quality. In healthcare, the stakes are higher than any other domain — a poorly prompted AI can suggest an incorrect treatment or omit a critical warning.</p>
+          <p>AfyaTech's prompting strategy is built on four principles: role clarity, hard constraints, format specification, and few-shot anchoring.</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1563213126-a4273aed2016?w=900&q=80" alt="Medical professional writing notes" loading="lazy" style="width:100%;height:320px;object-fit:cover;border-radius:var(--radius-xl);"/>
+        </div>
+      </div>
+
+      <div class="grid-4 mb-48">
+        <div class="card reveal" data-delay="0"><div class="card__icon"><i class="fa-solid fa-user-tie"></i></div><h3 class="card__title">Role Assignment</h3><p class="card__text">Every clinical prompt opens with a precise role that establishes clinical boundaries before any instruction.</p></div>
+        <div class="card reveal" data-delay="80"><div class="card__icon"><i class="fa-solid fa-ban"></i></div><h3 class="card__title">Hard Constraints</h3><p class="card__text">Explicit "Do NOT" instructions for diagnosis, prescriptions, and uncertain outputs — default to escalation.</p></div>
+        <div class="card reveal" data-delay="160"><div class="card__icon"><i class="fa-solid fa-list-check"></i></div><h3 class="card__title">Format Specification</h3><p class="card__text">SOAP notes, triage JSON, patient education — each has a precise output structure the prompt explicitly enforces.</p></div>
+        <div class="card reveal" data-delay="240"><div class="card__icon"><i class="fa-solid fa-copy"></i></div><h3 class="card__title">Few-Shot Anchoring</h3><p class="card__text">2–3 gold-standard examples included for rare presentations and locally specific East African disease patterns.</p></div>
+      </div>
+
+      <h3 style="margin-bottom:8px;font-size:1.3rem;">Template 1 — CHW Clinical Note Generation</h3>
+      <p class="mb-8">Converts raw CHW voice or text intake notes into structured SOAP-format clinical records.</p>
+      <div class="prompt-block reveal">
+        <div class="prompt-label">Prompt Template · Clinical Documentation</div>
+        <div class="prompt-code">You are a clinical documentation assistant for AfyaTech. Convert the CHW's raw intake notes into a structured SOAP note.
+
+CONTEXT: The CHW operates in a rural Kenyan dispensary. The patient has consented to AI-assisted documentation.
+
+RULES:
+- Generate ONLY the SOAP note structure. Do NOT diagnose.
+- Flag any symptom meeting WHO danger sign criteria with ⚠️
+- If the patient is a child under 5, apply IMCI framework headings.
+- Output in English. Translate any Swahili phrases accurately.
+- End every Assessment section with: "Requires clinician review."
+
+FORMAT:
+S (Subjective): [Patient's reported complaints, history]
+O (Objective): [Vitals and observable findings as provided]
+A (Assessment): [Summary only — no diagnoses. Requires clinician review.]
+P (Plan): [CHW actions taken. Escalation reason if applicable.]
+
+INPUT NOTE: <span class="prompt-var">{chw_intake_note}</span></div>
+      </div>
+
+      <h3 style="margin-bottom:8px;font-size:1.3rem;">Template 2 — Patient Triage Prioritisation</h3>
+      <p class="mb-8">Assigns urgency levels 1–5 and routes patients to appropriate care pathways.</p>
+      <div class="prompt-block reveal">
+        <div class="prompt-label">Prompt Template · Triage Agent</div>
+        <div class="prompt-code">You are a triage support system for AfyaTech. Assign a triage level and routing decision.
+
+TRIAGE SCALE:
+1 = Immediate (life-threatening) → Emergency referral now
+2 = Urgent (risk of deterioration) → Clinic within 2 hours
+3 = Semi-urgent → Clinic within 24 hours
+4 = Non-urgent → CHW follow-up within 72 hours
+5 = Self-care → Patient education provided
+
+MANDATORY LEVEL 1 OR 2 FLAGS:
+- Difficulty breathing in a child under 5
+- Chest pain with diaphoresis
+- Altered or reduced consciousness
+- Active seizures
+- Signs of obstetric emergency
+
+OUTPUT — respond ONLY with this JSON, nothing else:
+{"level": <span class="prompt-var">&lt;1–5&gt;</span>, "routing": "<span class="prompt-var">&lt;destination&gt;</span>", "reason": "<span class="prompt-var">&lt;one sentence&gt;</span>", "flags": [<span class="prompt-var">&lt;danger signs if any&gt;</span>]}
+
+PATIENT SUMMARY: <span class="prompt-var">{patient_summary}</span></div>
+      </div>
+
+      <h3 style="margin-bottom:8px;font-size:1.3rem;">Template 3 — Multilingual Patient Education</h3>
+      <div class="prompt-block reveal">
+        <div class="prompt-label">Prompt Template · Patient Education</div>
+        <div class="prompt-code">You are a patient health educator for AfyaTech, Kenya.
+
+Generate a plain-language explanation of the health topic below for a patient with no medical background.
+
+REQUIREMENTS:
+- Reading level: Standard 6 (approximately age 12)
+- Language: <span class="prompt-var">{language}</span>  (Swahili / English / Kikuyu)
+- Length: 150–200 words. Tone: Warm, respectful, non-alarming
+- Include: What it is · What to expect · One actionable step
+- Define any medical term immediately after using it
+- Final line must be: "Please ask your health worker if you have questions."
+
+TOPIC: <span class="prompt-var">{health_topic}</span>
+PATIENT CONTEXT: <span class="prompt-var">{age}</span>, <span class="prompt-var">{gender}</span>, <span class="prompt-var">{relevant_condition}</span></div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">Prompt Quality Deployment Checklist</h3>
+      <div class="card reveal">
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Role clearly defined with scope of practice limits stated</div>
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Negative constraints included (Do NOT diagnose, Do NOT prescribe)</div>
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Output format explicitly specified (SOAP, JSON, prose)</div>
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Escalation pathway defined for uncertain or high-risk cases</div>
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Tested on minimum 20 real CHW case notes</div>
+        <div class="checklist-item"><i class="fa-solid fa-circle-check"></i> Clinician sign-off received before deployment</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERRAIN 2: TSAVO -->
+  <div class="terrain-section" id="terrain-tsavo">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;margin-bottom:64px;">
+        <div>
+          <p class="section-eyebrow"><i class="fa-solid fa-brain"></i> Terrain 2 · Tsavo</p>
+          <h2 class="section-title">AI Fluency — Building Organisational Intelligence</h2>
+          <p class="mb-16">The Tsavo terrain revealed that AI tools are only as powerful as the team using them. AfyaTech's clinical and operational staff must understand not just how to use AI, but how it works, where it fails, and when to override it.</p>
+          <p>AI fluency is a prerequisite for safe healthcare deployment — not an optional extra.</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=900&q=80" alt="Healthcare team in training session" loading="lazy" style="width:100%;height:320px;object-fit:cover;border-radius:var(--radius-xl);"/>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">AI Capability Map for AfyaTech</h3>
+      <div class="capability-grid mb-48">
+        <div class="capability-box capability-box--can">
+          <div class="capability-box__title"><i class="fa-solid fa-circle-check"></i> What AI Can Do Well</div>
+          <span class="capability-tag tag-can">Clinical documentation</span>
+          <span class="capability-tag tag-can">Symptom summarisation</span>
+          <span class="capability-tag tag-can">Drug interaction lookup</span>
+          <span class="capability-tag tag-can">Patient education</span>
+          <span class="capability-tag tag-can">Appointment scheduling</span>
+          <span class="capability-tag tag-can">Swahili ↔ English</span>
+          <span class="capability-tag tag-can">ICD-10 code suggestions</span>
+          <span class="capability-tag tag-can">Follow-up drafts</span>
+          <span class="capability-tag tag-can">Literature search</span>
+          <span class="capability-tag tag-can">CHW training support</span>
+        </div>
+        <div class="capability-box capability-box--cant">
+          <div class="capability-box__title"><i class="fa-solid fa-circle-xmark"></i> What AI Cannot Do — Hard Limits</div>
+          <span class="capability-tag tag-cant">Physical examination</span>
+          <span class="capability-tag tag-cant">Final diagnosis</span>
+          <span class="capability-tag tag-cant">Prescribe medication</span>
+          <span class="capability-tag tag-cant">Real-time lab results</span>
+          <span class="capability-tag tag-cant">Empathetic counselling</span>
+          <span class="capability-tag tag-cant">Legal/insurance decisions</span>
+          <span class="capability-tag tag-cant">Guarantee accuracy</span>
+          <span class="capability-tag tag-cant">Replace clinical judgment</span>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">Critical Concepts Every AfyaTech Staff Member Must Know</h3>
+      <div class="grid-3 mb-48">
+        <div class="card"><div class="card__icon"><i class="fa-solid fa-ghost"></i></div><h3 class="card__title">Hallucination</h3><p class="card__text">LLMs can generate plausible-sounding but entirely fabricated information — inventing drug names, dosages, or statistics. All AI clinical output must be verified against an approved source before being acted upon. No exceptions.</p></div>
+        <div class="card"><div class="card__icon"><i class="fa-solid fa-clock"></i></div><h3 class="card__title">Knowledge Cutoffs</h3><p class="card__text">AI models cannot access real-time drug updates, outbreak data, or revised clinical guidelines. AfyaTech connects to a live Kenya Essential Medicines List API to supplement base model knowledge.</p></div>
+        <div class="card"><div class="card__icon"><i class="fa-solid fa-face-meh"></i></div><h3 class="card__title">Confidence ≠ Accuracy</h3><p class="card__text">AI presents fabricated and correct information in the same confident tone. CHWs are trained to treat every AI output as a first draft that always requires review — never as authoritative guidance.</p></div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">AI Literacy Training Programme</h3>
+      <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--clr-border);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:48px;">
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 32px;border-bottom:1px solid var(--clr-border);background:var(--clr-white);">
+          <div style="width:48px;height:48px;background:var(--clr-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:1.3rem;color:var(--clr-primary);flex-shrink:0;">1</div>
+          <div><div style="font-size:1rem;font-weight:600;margin-bottom:4px;color:var(--clr-text);">AI Essentials — All Staff</div><div style="font-size:.88rem;color:var(--clr-muted);">What AI is and isn't; how LLMs work conceptually; hallucination recognition drills; when to escalate. Delivered in Swahili via offline-capable e-learning modules.</div></div>
+          <div style="text-align:right;"><span class="pill pill--green">4 hours</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 32px;border-bottom:1px solid var(--clr-border);background:var(--clr-light);">
+          <div style="width:48px;height:48px;background:var(--clr-white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:1.3rem;color:var(--clr-primary);flex-shrink:0;border:1px solid var(--clr-border);">2</div>
+          <div><div style="font-size:1rem;font-weight:600;margin-bottom:4px;color:var(--clr-text);">AI in Clinical Practice — CHWs and Nurses</div><div style="font-size:.88rem;color:var(--clr-muted);">Hands-on practice with clinical documentation tools; prompt refinement; clinical validation workflows; case studies on documented AI failures in African healthcare.</div></div>
+          <div style="text-align:right;"><span class="pill pill--gold">8 hours</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 32px;background:var(--clr-white);">
+          <div style="width:48px;height:48px;background:var(--clr-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:1.3rem;color:var(--clr-white);flex-shrink:0;">3</div>
+          <div><div style="font-size:1rem;font-weight:600;margin-bottom:4px;color:var(--clr-text);">AI Strategy & Governance — Managers and Clinicians</div><div style="font-size:.88rem;color:var(--clr-muted);">Prompt engineering; AI procurement evaluation; model performance metrics; governance structures; contributing to AfyaTech's AI Ethics Board quarterly reviews.</div></div>
+          <div style="text-align:right;"><span class="pill pill--blue">12 hours</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERRAIN 3: ETHICS -->
+  <div class="terrain-section" id="terrain-ethics">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;margin-bottom:64px;">
+        <div>
+          <p class="section-eyebrow"><i class="fa-solid fa-scale-balanced"></i> Terrain 3 · Ethical Savannah</p>
+          <h2 class="section-title">Ethics & Governance — Responsible AI in Healthcare</h2>
+          <p class="mb-16">Healthcare AI without ethics is harm at scale. The Ethical Savannah challenged AfyaTech to ask: who benefits, who is harmed, who decides, and who is accountable?</p>
+          <p>These principles are embedded into every AI decision — from model selection to patient communication.</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=900&q=80" alt="Healthcare ethics governance meeting" loading="lazy" style="width:100%;height:320px;object-fit:cover;border-radius:var(--radius-xl);"/>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">Legal & Regulatory Framework</h3>
+      <div class="grid-2 mb-48">
+        <div class="card"><div class="card__icon"><i class="fa-solid fa-certificate"></i></div><h3 class="card__title">Kenya Data Protection Act, 2019</h3><p class="card__text">Patient health data is sensitive personal data under Kenyan law. AfyaTech requires explicit opt-in consent, data minimisation, and rights to access and deletion. A Data Protection Officer is appointed and registered with the ODPC.</p></div>
+        <div class="card"><div class="card__icon"><i class="fa-solid fa-building-columns"></i></div><h3 class="card__title">Kenya Health Act & KMPDC</h3><p class="card__text">AI operates strictly as clinical decision support. Diagnosis and prescription remain the legal mandate of licensed practitioners. AfyaTech has engaged KMPDC and the MOH for regulatory guidance and compliance dialogue.</p></div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">The Five Ethical Pillars</h3>
+      <div class="mb-48">
+        <div class="ethics-pillar"><div class="ethics-num">01</div><div><div class="ethics-title">Equity — AI That Works for Everyone</div><div class="ethics-text">AfyaTech audits model performance across geographic, socioeconomic, age, and gender groups. Any performance gap greater than 5% between subgroups triggers a mandatory retraining review. Skin condition AI receives heightened scrutiny given historical underperformance on darker skin tones.</div></div></div>
+        <div class="ethics-pillar"><div class="ethics-num">02</div><div><div class="ethics-title">Transparency — Patients Deserve to Know</div><div class="ethics-text">Patients are always informed when AI is involved in their care — in plain language, in their preferred language. The AfyaTech app displays a clear "AI-assisted" indicator. Clinicians may never present AI output as their own independent clinical judgment.</div></div></div>
+        <div class="ethics-pillar"><div class="ethics-num">03</div><div><div class="ethics-title">Human Oversight — The Final Word Stays Human</div><div class="ethics-text">AfyaTech operates a strict human-in-the-loop policy for all clinical decisions. AI provides decision support; a licensed clinician makes and owns the final decision. Automated high-stakes actions require clinician confirmation before execution.</div></div></div>
+        <div class="ethics-pillar"><div class="ethics-num">04</div><div><div class="ethics-title">Data Sovereignty — Patient Data Belongs to Patients</div><div class="ethics-text">All patient health data is stored on Kenya-domiciled servers. AfyaTech does not sell or share data with third parties. Anonymised aggregate data may be used for model improvement only with community consent.</div></div></div>
+        <div class="ethics-pillar"><div class="ethics-num">05</div><div><div class="ethics-title">Accountability — Someone Is Always Responsible</div><div class="ethics-text">Every AI output in a clinical pathway has a named responsible human. AfyaTech maintains an AI incident register: any near-miss or adverse event linked to AI output is reviewed by the Ethics Board within 14 days, with findings published in the annual Transparency Report.</div></div></div>
+      </div>
+
+      <h3 style="margin-bottom:16px;font-size:1.3rem;">Risk Tiering Framework</h3>
+      <div class="card mb-48">
+        <div class="risk-row">
+          <span class="risk-badge-sm risk-low"><i class="fa-solid fa-circle"></i> Low</span>
+          <div><div class="risk-title">Administrative and Educational AI</div><div class="risk-text">Appointment reminders, health tips, insurance form pre-fill. Automated deployment permitted after template-level clinician approval. Monthly audit cycle.</div></div>
+        </div>
+        <div class="risk-row">
+          <span class="risk-badge-sm risk-med"><i class="fa-solid fa-circle-half-stroke"></i> Medium</span>
+          <div><div class="risk-title">Clinical Documentation and Triage Support</div><div class="risk-text">SOAP note generation, triage scoring, drug lookup. CHW can view output; a clinician must confirm before acting. Weekly audit cycle.</div></div>
+        </div>
+        <div class="risk-row">
+          <span class="risk-badge-sm risk-high"><i class="fa-solid fa-circle-exclamation"></i> High</span>
+          <div><div class="risk-title">Diagnostic Support and Treatment Recommendations</div><div class="risk-text">Differential diagnosis suggestions, dosage calculations, referral decisions. Licensed clinician review mandatory before any patient contact. Daily audit cycle.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERRAIN 4: AGENTS -->
+  <div class="terrain-section" id="terrain-agents">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;margin-bottom:64px;">
+        <div>
+          <p class="section-eyebrow"><i class="fa-solid fa-robot"></i> Terrain 4 · Agentic Pride</p>
+          <h2 class="section-title">Agent Orchestration — AI That Acts, Not Just Answers</h2>
+          <p class="mb-16">The Agentic Pride terrain moved beyond single-turn AI into coordinated multi-agent systems. For AfyaTech, this means AI agents working together across the full patient journey — extending clinician capacity without replacing clinician judgment.</p>
+          <p>Five specialised agents, each with defined risk tiers and human checkpoints, coordinate to deliver seamless, safe clinical support.</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=900&q=80" alt="AI robot network orchestration concept" loading="lazy" style="width:100%;height:320px;object-fit:cover;border-radius:var(--radius-xl);"/>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:64px;">
+        <div>
+          <h3 style="margin-bottom:16px;font-size:1.3rem;">The AfyaTech Agent Network</h3>
+          <div class="agent-card">
+            <div class="agent-header"><div class="agent-icon" style="background:#E1F5EE;"><i class="fa-solid fa-user-plus" style="color:#085041;"></i></div><div><div class="agent-meta-name">Agent 1 — Patient Intake</div><div class="agent-meta-role">Low risk · Fully automated</div></div></div>
+            <div class="agent-desc">Greets patients via WhatsApp, USSD, or the AfyaTech app. Collects demographics, chief complaint, symptom duration, and hands off a clean structured summary to the Triage Agent.</div>
+            <div class="tool-grid"><span class="tool-chip"><i class="fa-brands fa-whatsapp"></i> WhatsApp</span><span class="tool-chip"><i class="fa-solid fa-phone"></i> USSD</span><span class="tool-chip"><i class="fa-solid fa-language"></i> Translation</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-header"><div class="agent-icon" style="background:#FAEEDA;"><i class="fa-solid fa-triangle-exclamation" style="color:#633806;"></i></div><div><div class="agent-meta-name">Agent 2 — Clinical Triage</div><div class="agent-meta-role">Medium risk · Clinician SMS for Level 1–2</div></div></div>
+            <div class="agent-desc">Applies WHO IMCI and adult triage algorithms to assign a 1–5 urgency score. Flags danger signs. Immediately notifies the duty clinician for all Level 1 and Level 2 assignments.</div>
+            <div class="tool-grid"><span class="tool-chip"><i class="fa-solid fa-bell"></i> SMS alerts</span><span class="tool-chip"><i class="fa-solid fa-map-pin"></i> Facility locator</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-header"><div class="agent-icon" style="background:#E6F1FB;"><i class="fa-solid fa-stethoscope" style="color:#0C447C;"></i></div><div><div class="agent-meta-name">Agent 3 — Clinical Decision Support</div><div class="agent-meta-role">High risk · Human review always mandatory</div></div></div>
+            <div class="agent-desc">Prepares pre-consultation clinical briefs for clinicians only. AI-suggested differentials are clearly labelled. Never communicates directly with patients.</div>
+            <div class="tool-grid"><span class="tool-chip"><i class="fa-solid fa-pills"></i> Kenya Formulary</span><span class="tool-chip"><i class="fa-solid fa-book"></i> MOH Guidelines</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-header"><div class="agent-icon" style="background:#FBEAF0;"><i class="fa-solid fa-heart-handshake" style="color:#72243E;"></i></div><div><div class="agent-meta-name">Agent 4 — CHW Field Support</div><div class="agent-meta-role">Medium risk · All queries supervisor-logged</div></div></div>
+            <div class="agent-desc">Mobile-first AI mentor in Swahili and English. Answers protocol questions and locates referral facilities. Defaults to "not sure — refer" for all ambiguous clinical queries.</div>
+            <div class="tool-grid"><span class="tool-chip"><i class="fa-solid fa-wifi"></i> Offline capable</span><span class="tool-chip"><i class="fa-solid fa-clipboard"></i> CHW protocols</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-header"><div class="agent-icon" style="background:#EAF3DE;"><i class="fa-solid fa-bell-slash" style="color:#3B6D11;font-size:.9rem;"></i><i class="fa-solid fa-bell" style="color:#3B6D11;"></i></div><div><div class="agent-meta-name">Agent 5 — Patient Follow-Up</div><div class="agent-meta-role">Low risk · Escalates to Triage if needed</div></div></div>
+            <div class="agent-desc">Sends post-visit follow-ups, medication reminders, and checks in on chronic disease patients. Auto-escalates to the Triage Agent if a patient reports worsening symptoms.</div>
+            <div class="tool-grid"><span class="tool-chip"><i class="fa-brands fa-whatsapp"></i> WhatsApp/SMS</span><span class="tool-chip"><i class="fa-solid fa-chart-line"></i> Health tracker</span></div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom:16px;font-size:1.3rem;">Orchestration Flow with Human Checkpoints</h3>
+          <div class="flow-chart">
+            <div class="flow-node">Patient contacts AfyaTech via WhatsApp, USSD, or app</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-node flow-node--teal"><i class="fa-solid fa-user-plus"></i> Agent 1 · Intake — structured patient history collected</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-node flow-node--amber"><i class="fa-solid fa-triangle-exclamation"></i> Agent 2 · Triage — urgency level 1–5 assigned</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-checkpoint"><i class="fa-solid fa-user-check"></i> Human checkpoint — Level 1 or 2: immediate duty clinician notification via SMS</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-node flow-node--blue"><i class="fa-solid fa-stethoscope"></i> Agent 3 · Clinical Support — pre-consultation brief for clinician</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-checkpoint"><i class="fa-solid fa-user-check"></i> Human checkpoint — clinician reviews, consults patient, owns all final decisions</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-node flow-node--green"><i class="fa-solid fa-bell"></i> Agent 5 · Follow-up — chronic disease monitoring begins</div>
+            <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="flow-node" style="font-size:.82rem;color:var(--clr-muted);">If worsening symptoms reported → escalate back to Agent 2</div>
+          </div>
+
+          <h3 style="margin-top:32px;margin-bottom:16px;font-size:1.3rem;">Implementation Roadmap</h3>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-item__date">Q1–Q2 2025</div><h4 class="timeline-item__title">Foundation</h4><p class="timeline-item__text">Deploy Agents 1 and 5. Integrate with EHR. Pilot with 500 patients in Nairobi.</p></div>
+            <div class="timeline-item"><div class="timeline-item__date">Q3–Q4 2025</div><h4 class="timeline-item__title">Clinical Integration</h4><p class="timeline-item__text">Launch Agent 2 across 5 counties. Begin supervised Agent 3 pilot with 20 clinicians. Deploy Agent 4 for CHW cohort in Kisumu and Mombasa.</p></div>
+            <div class="timeline-item"><div class="timeline-item__date">2026–2027</div><h4 class="timeline-item__title">National Scale</h4><p class="timeline-item__text">All 5 agents live across 47 counties. Cross-agent learning pipeline established. Ethics Board quarterly reviews published.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="section cta-section" style="padding:80px 0;">
+    <div class="container" style="position:relative;z-index:2;text-align:center;">
+      <h2 class="section-title section-title--white mb-16">Explore AfyaTech's Full AI Strategy</h2>
+      <p class="section-sub section-sub--white mb-32" style="margin:0 auto 32px;">Interested in deploying any element of this framework in your health programme? Our team is ready to discuss implementation.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html"  class="btn btn--gold"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+        <a href="services.html" class="btn btn--outline"><i class="fa-solid fa-grid-2"></i> Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Afya<span style="color:var(--clr-accent);">Tech</span></div>
+          <p>AI-powered healthcare for East Africa. Bridging the gap between communities and quality clinical care — one interaction at a time.</p>
+          <div class="footer__socials" style="margin-top:24px;">
+            <a href="#" class="footer__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="footer__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer__social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="footer__social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div><p class="footer__col-title">Company</p><a href="about.html" class="footer__link">About AfyaTech</a><a href="about.html#team" class="footer__link">Our Team</a><a href="contact.html" class="footer__link">Careers</a><a href="contact.html" class="footer__link">Press</a></div>
+        <div><p class="footer__col-title">Solutions</p><a href="services.html" class="footer__link">Clinical Documentation</a><a href="services.html" class="footer__link">Triage AI</a><a href="services.html" class="footer__link">Patient Education</a><a href="services.html" class="footer__link">CHW Support</a></div>
+        <div><p class="footer__col-title">Resources</p><a href="strategy.html" class="footer__link">AI Strategy</a><a href="strategy.html" class="footer__link">Ethics Charter</a><a href="contact.html" class="footer__link">Documentation</a><a href="contact.html" class="footer__link">Contact</a></div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 AfyaTech Ltd. Registered in Nairobi, Kenya. All rights reserved.</p>
+        <div style="display:flex;gap:24px;"><a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Privacy Policy</a><a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Terrain tab switching
+    document.querySelectorAll('.terrain-nav__tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.terrain-nav__tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.terrain-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        const section = document.getElementById('terrain-' + tab.dataset.terrain);
+        if (section) section.classList.add('active');
+      });
+    });
+    // Open ethics tab from external link
+    if (window.location.hash === '#ethics') {
+      document.querySelectorAll('.terrain-nav__tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.terrain-section').forEach(s => s.classList.remove('active'));
+      document.querySelector('[data-terrain="ethics"]').classList.add('active');
+      document.getElementById('terrain-ethics').classList.add('active');
+    }
+  </script>
+</body>
+</html>

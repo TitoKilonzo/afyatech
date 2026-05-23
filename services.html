@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AfyaTech Services — AI Solutions for Healthcare</title>
+  <meta name="description" content="Explore AfyaTech's full suite of AI-powered clinical tools: documentation, triage, patient education, CHW support, and more."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .service-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .service-block:last-child { border-bottom: none; }
+    .service-block--reverse { direction: rtl; }
+    .service-block--reverse > * { direction: ltr; }
+    .service-img {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      height: 440px;
+    }
+    .service-img img { width: 100%; height: 100%; object-fit: cover; }
+    .feature-list { list-style: none; margin: 20px 0 28px; padding: 0; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--clr-border);
+      font-size: .93rem;
+      color: var(--clr-muted);
+      line-height: 1.55;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list i { color: var(--clr-secondary); margin-top: 2px; flex-shrink: 0; }
+    .risk-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .75rem; font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 40px;
+      margin-bottom: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .risk-low  { background: #E1F5EE; color: #085041; }
+    .risk-med  { background: #FAEEDA; color: #633806; }
+    .risk-high { background: #FBEAEA; color: #7C1F1F; }
+    .tool-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tool-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--clr-light);
+      border: 1px solid var(--clr-border);
+      border-radius: 40px;
+      padding: 5px 12px;
+      font-size: .8rem;
+      color: var(--clr-muted);
+      font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .service-block { grid-template-columns: 1fr; gap: 32px; }
+      .service-block--reverse { direction: ltr; }
+      .service-img { height: 260px; }
+    }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .comparison-table th {
+      background: var(--clr-primary);
+      color: var(--clr-white);
+      padding: 14px 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .comparison-table td { padding: 13px 20px; border-bottom: 1px solid var(--clr-border); vertical-align: top; }
+    .comparison-table tr:nth-child(even) td { background: var(--clr-light); }
+    .comparison-table .yes { color: var(--clr-secondary); font-weight: 600; }
+    .comparison-table .no  { color: #A32D2D; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">Afya<span class="nav__logo-dot">Tech</span></a>
+      <div class="nav__links">
+        <a href="index.html"    class="nav__link">Home</a>
+        <a href="about.html"    class="nav__link">About</a>
+        <a href="services.html" class="nav__link active">Services</a>
+        <a href="strategy.html" class="nav__link">AI Strategy</a>
+        <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+      </div>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="strategy.html" class="nav__link">AI Strategy</a>
+      <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=1800&q=75');background-size:cover;background-position:center top;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,26,20,.92) 0%,rgba(10,92,69,.78) 100%);"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <div class="page-hero__eyebrow"><i class="fa-solid fa-grid-2"></i> Our Services</div>
+        <h1 class="page-hero__title">AI Tools Built for Clinical Reality</h1>
+        <p class="page-hero__sub">Six integrated AI products, designed for the constraints and opportunities of East African healthcare — low connectivity, multilingual patients, and overstretched clinicians.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Service 1 -->
+      <div class="service-block reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80" alt="Clinical documentation on tablet" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-med"><i class="fa-solid fa-circle-half-stroke"></i> Medium Risk · CHW Review Required</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-file-medical"></i> Service 01</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">Clinical Documentation AI</h2>
+          <p class="mb-16">Converts raw CHW voice and text intake notes into fully structured SOAP-format clinical records — in English or Swahili — reducing documentation time by up to 70%.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>Automatic IMCI framework for children under 5</li>
+            <li><i class="fa-solid fa-check"></i>WHO danger sign flags marked with visual alerts</li>
+            <li><i class="fa-solid fa-check"></i>Swahili phrase translation with clinical accuracy</li>
+            <li><i class="fa-solid fa-check"></i>ICD-10 code suggestions for structured records</li>
+            <li><i class="fa-solid fa-check"></i>EHR integration via HL7 FHIR API</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-solid fa-microphone"></i> Voice input</span>
+            <span class="tool-chip"><i class="fa-solid fa-mobile"></i> Mobile-first</span>
+            <span class="tool-chip"><i class="fa-solid fa-wifi"></i> Offline capable</span>
+            <span class="tool-chip"><i class="fa-brands fa-whatsapp"></i> WhatsApp</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-block service-block--reverse reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=900&q=80" alt="Emergency triage in hospital" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-med"><i class="fa-solid fa-circle-half-stroke"></i> Medium Risk · Clinician Notified Levels 1–2</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-triangle-exclamation"></i> Service 02</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">Intelligent Triage Agent</h2>
+          <p class="mb-16">Assigns urgency levels 1–5 using WHO IMCI protocols and adult triage algorithms, routes patients to the appropriate care pathway, and instantly notifies the duty clinician via SMS for all Level 1 and 2 assignments.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>WHO IMCI and adult triage algorithms combined</li>
+            <li><i class="fa-solid fa-check"></i>Real-time SMS and push notification for emergencies</li>
+            <li><i class="fa-solid fa-check"></i>Structured JSON output for EHR integration</li>
+            <li><i class="fa-solid fa-check"></i>Nearest facility routing via geolocation API</li>
+            <li><i class="fa-solid fa-check"></i>Audit log of every triage decision</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-solid fa-bell"></i> SMS alerts</span>
+            <span class="tool-chip"><i class="fa-solid fa-map-pin"></i> Facility locator</span>
+            <span class="tool-chip"><i class="fa-solid fa-database"></i> WHO guidelines DB</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-block reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=900&q=80" alt="Patient education discussion" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-low"><i class="fa-solid fa-circle"></i> Low Risk · Clinician Template Approved</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-language"></i> Service 03</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">Multilingual Patient Education</h2>
+          <p class="mb-16">Generates personalised, plain-language health education in Swahili, English, or Kikuyu — calibrated to Grade 6 reading level with age and condition-specific context for every patient.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>3 languages: Swahili, English, Kikuyu</li>
+            <li><i class="fa-solid fa-check"></i>Grade 6 reading level for maximum comprehension</li>
+            <li><i class="fa-solid fa-check"></i>Condition-specific templates (malaria, TB, diabetes, hypertension)</li>
+            <li><i class="fa-solid fa-check"></i>Delivered via WhatsApp, SMS, or printed handout</li>
+            <li><i class="fa-solid fa-check"></i>Clinician-approved template library</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-brands fa-whatsapp"></i> WhatsApp delivery</span>
+            <span class="tool-chip"><i class="fa-solid fa-print"></i> Print-ready</span>
+            <span class="tool-chip"><i class="fa-solid fa-language"></i> 3 languages</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-block service-block--reverse reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=80" alt="Doctor reviewing clinical AI on screen" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-high"><i class="fa-solid fa-circle-exclamation"></i> High Risk · Clinician Review Mandatory</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-stethoscope"></i> Service 04</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">Clinical Decision Support</h2>
+          <p class="mb-16">Prepares a pre-consultation clinical brief for clinicians: patient history, AI-suggested differentials (clearly labelled), drug interaction flags, and applicable Kenya clinical guidelines. Never communicates directly with patients.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>Kenya Essential Medicines List API integration</li>
+            <li><i class="fa-solid fa-check"></i>Drug-drug and drug-condition interaction flags</li>
+            <li><i class="fa-solid fa-check"></i>AI differentials clearly labelled — never presented as diagnoses</li>
+            <li><i class="fa-solid fa-check"></i>Kenya MOH clinical guideline references linked</li>
+            <li><i class="fa-solid fa-check"></i>PubMed literature search for rare presentations</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-solid fa-pills"></i> Kenya Formulary API</span>
+            <span class="tool-chip"><i class="fa-solid fa-book"></i> MOH guidelines</span>
+            <span class="tool-chip"><i class="fa-solid fa-microscope"></i> PubMed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="service-block reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="Community health worker with mobile phone" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-med"><i class="fa-solid fa-circle-half-stroke"></i> Medium Risk · All Queries Supervisor-Logged</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-person-walking-arrow-right"></i> Service 05</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">CHW Field Support Agent</h2>
+          <p class="mb-16">A mobile-first AI agent accessible via the AfyaTech CHW app. Answers protocol questions in Swahili and English, locates nearest referral facilities, and defaults to "not sure — refer" for all ambiguous clinical queries.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>Available 24/7 in Swahili and English</li>
+            <li><i class="fa-solid fa-check"></i>Nearest facility locator with referral letter generator</li>
+            <li><i class="fa-solid fa-check"></i>Every query logged for supervisor review</li>
+            <li><i class="fa-solid fa-check"></i>Offline mode for low-connectivity areas</li>
+            <li><i class="fa-solid fa-check"></i>Safe default: escalation for all ambiguous queries</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-solid fa-wifi"></i> Offline capable</span>
+            <span class="tool-chip"><i class="fa-solid fa-map"></i> Facility locator</span>
+            <span class="tool-chip"><i class="fa-solid fa-clipboard"></i> CHW protocols</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="service-block service-block--reverse reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&q=80" alt="Patient receiving follow-up care" loading="lazy"/>
+        </div>
+        <div>
+          <span class="risk-badge risk-low"><i class="fa-solid fa-circle"></i> Low Risk · Automated with Clinician Templates</span>
+          <p class="section-eyebrow"><i class="fa-solid fa-bell"></i> Service 06</p>
+          <h2 class="section-title" style="font-size:clamp(1.5rem,2.5vw,2rem);">Patient Follow-Up Agent</h2>
+          <p class="mb-16">Sends personalised post-visit follow-up messages, medication reminders, and appointment confirmations. Monitors chronic disease patients at clinician-defined intervals and escalates worsening symptoms back to triage automatically.</p>
+          <ul class="feature-list">
+            <li><i class="fa-solid fa-check"></i>TB, diabetes, and hypertension chronic disease monitoring</li>
+            <li><i class="fa-solid fa-check"></i>Medication adherence reminders via WhatsApp or SMS</li>
+            <li><i class="fa-solid fa-check"></i>Auto-escalation to triage on symptom worsening</li>
+            <li><i class="fa-solid fa-check"></i>All message templates clinician-pre-approved</li>
+            <li><i class="fa-solid fa-check"></i>Health outcomes tracking dashboard for clinicians</li>
+          </ul>
+          <div class="tool-grid">
+            <span class="tool-chip"><i class="fa-brands fa-whatsapp"></i> WhatsApp/SMS</span>
+            <span class="tool-chip"><i class="fa-solid fa-chart-line"></i> Outcomes tracker</span>
+            <span class="tool-chip"><i class="fa-solid fa-calendar"></i> Scheduler API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header--center mb-48 reveal">
+        <p class="section-eyebrow"><i class="fa-solid fa-table"></i> Capability Overview</p>
+        <h2 class="section-title">What Each Agent Can — and Cannot — Do</h2>
+        <p class="section-sub">AfyaTech is transparent about AI boundaries. The table below reflects our ethical commitment to accurate capability representation.</p>
+      </div>
+      <div class="reveal" style="overflow-x:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);border:1px solid var(--clr-border);">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Documentation AI</th>
+              <th>Triage Agent</th>
+              <th>Decision Support</th>
+              <th>CHW Support</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Multilingual output</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td></tr>
+            <tr><td>Offline capable</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="no"><i class="fa-solid fa-xmark"></i> No</td><td class="no"><i class="fa-solid fa-xmark"></i> No</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td></tr>
+            <tr><td>FHIR EHR integration</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="no"><i class="fa-solid fa-xmark"></i> No</td></tr>
+            <tr><td>Provide final diagnosis</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td></tr>
+            <tr><td>Prescribe medication</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td><td class="no"><i class="fa-solid fa-xmark"></i> Never</td></tr>
+            <tr><td>WHO danger sign detection</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="no"><i class="fa-solid fa-xmark"></i> No</td><td class="yes"><i class="fa-solid fa-check"></i> Partial</td></tr>
+            <tr><td>Clinician approval required</td><td class="yes"><i class="fa-solid fa-check"></i> Yes</td><td class="yes"><i class="fa-solid fa-check"></i> L1–L2</td><td class="yes"><i class="fa-solid fa-check"></i> Always</td><td class="yes"><i class="fa-solid fa-check"></i> Logged</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container" style="position:relative;z-index:2;text-align:center;">
+      <p class="section-eyebrow" style="justify-content:center;color:var(--clr-accent);"><i class="fa-solid fa-rocket"></i> Deploy AfyaTech</p>
+      <h2 class="section-title section-title--white mb-16">Ready to Deploy in Your County or Facility?</h2>
+      <p class="section-sub section-sub--white mb-32" style="margin:0 auto 32px;">Our team handles implementation, integration, and ongoing training for all six AI products.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn--gold"><i class="fa-solid fa-paper-plane"></i> Request a Demo</a>
+        <a href="strategy.html" class="btn btn--outline"><i class="fa-solid fa-book-open"></i> Read the AI Strategy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Afya<span style="color:var(--clr-accent);">Tech</span></div>
+          <p>AI-powered healthcare for East Africa. Bridging the gap between communities and quality clinical care — one interaction at a time.</p>
+          <div class="footer__socials" style="margin-top:24px;">
+            <a href="#" class="footer__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="footer__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer__social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="footer__social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Company</p>
+          <a href="about.html"      class="footer__link">About AfyaTech</a>
+          <a href="about.html#team" class="footer__link">Our Team</a>
+          <a href="contact.html"    class="footer__link">Careers</a>
+          <a href="contact.html"    class="footer__link">Press</a>
+        </div>
+        <div>
+          <p class="footer__col-title">Solutions</p>
+          <a href="services.html" class="footer__link">Clinical Documentation</a>
+          <a href="services.html" class="footer__link">Triage AI</a>
+          <a href="services.html" class="footer__link">Patient Education</a>
+          <a href="services.html" class="footer__link">CHW Support</a>
+        </div>
+        <div>
+          <p class="footer__col-title">Resources</p>
+          <a href="strategy.html" class="footer__link">AI Strategy</a>
+          <a href="strategy.html" class="footer__link">Ethics Charter</a>
+          <a href="contact.html"  class="footer__link">Documentation</a>
+          <a href="contact.html"  class="footer__link">Contact</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 AfyaTech Ltd. Registered in Nairobi, Kenya. All rights reserved.</p>
+        <div style="display:flex;gap:24px;">
+          <a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Privacy Policy</a>
+          <a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

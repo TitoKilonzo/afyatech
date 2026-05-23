@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About AfyaTech — Our Story, Mission & Team</title>
+  <meta name="description" content="Learn about AfyaTech's mission to extend quality healthcare to every East African through responsible, locally-grounded artificial intelligence." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .value-card {
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .value-icon {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .milestones { display: flex; flex-direction: column; gap: 0; }
+    .milestone {
+      display: flex; gap: 32px; align-items: flex-start;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .milestone:last-child { border-bottom: none; }
+    .milestone__year {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--clr-secondary);
+      min-width: 80px;
+      line-height: 1;
+    }
+    .milestone__title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: var(--clr-text); }
+    .milestone__text { font-size: .92rem; color: var(--clr-muted); line-height: 1.65; }
+    .impact-banner {
+      background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-mid) 100%);
+      border-radius: var(--radius-xl);
+      padding: 64px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .impact-banner::before {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .impact-banner__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; margin-top: 40px; }
+    .impact-num { font-family: var(--ff-display); font-size: 3rem; color: var(--clr-white); line-height: 1; margin-bottom: 6px; }
+    .impact-lbl { font-size: .88rem; color: rgba(255,255,255,.65); }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">Afya<span class="nav__logo-dot">Tech</span></a>
+      <div class="nav__links">
+        <a href="index.html"    class="nav__link">Home</a>
+        <a href="about.html"    class="nav__link active">About</a>
+        <a href="services.html" class="nav__link">Services</a>
+        <a href="strategy.html" class="nav__link">AI Strategy</a>
+        <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+      </div>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__mobile">
+      <a href="index.html"    class="nav__link">Home</a>
+      <a href="about.html"    class="nav__link">About</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="strategy.html" class="nav__link">AI Strategy</a>
+      <a href="contact.html"  class="nav__link nav__cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=1800&q=75');background-size:cover;background-position:center;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,26,20,.92) 0%,rgba(10,92,69,.82) 100%);"></div>
+    <div class="container">
+      <div class="page-hero__content">
+        <div class="page-hero__eyebrow"><i class="fa-solid fa-leaf"></i> About AfyaTech</div>
+        <h1 class="page-hero__title">Born in Nairobi.<br />Built for Africa.</h1>
+        <p class="page-hero__sub">AfyaTech started with one question: what if every community health worker in Kenya had a brilliant clinical partner available 24/7 — in their own language?</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;">
+        <div class="reveal">
+          <p class="section-eyebrow"><i class="fa-solid fa-book-open"></i> Our Story</p>
+          <h2 class="section-title">A Healthcare Crisis That Demanded a New Answer</h2>
+          <p class="mb-16">Kenya faces one of the world's most severe healthcare worker shortages: a ratio of 1 doctor for every 16,000 patients. With 70% of the population living in rural areas far from hospitals, millions of Kenyans navigate complex health decisions with little professional guidance.</p>
+          <p class="mb-16">AfyaTech was founded in 2017 by a team of Kenyan clinicians, engineers, and public health experts who believed artificial intelligence — deployed ethically and trained on local data — could change this equation fundamentally.</p>
+          <p class="mb-32">We started with a simple SMS-based clinical assistant for CHWs in Kisumu. Today we support over 8,000 health workers across Kenya, with an agent network spanning intake, triage, clinical support, and long-term follow-up.</p>
+          <a href="services.html" class="btn btn--primary"><i class="fa-solid fa-arrow-right"></i> Explore Our Services</a>
+        </div>
+        <div class="reveal" data-delay="150">
+          <img src="https://images.unsplash.com/photo-1631815589975-db6af8d69659?w=900&q=80" alt="Community health workers in Kenya" loading="lazy" style="width:100%;height:480px;object-fit:cover;border-radius:var(--radius-xl);" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT BANNER -->
+  <section class="section--sm">
+    <div class="container">
+      <div class="impact-banner reveal">
+        <p class="section-eyebrow" style="color:var(--clr-accent);"><i class="fa-solid fa-chart-line"></i> Our Impact</p>
+        <h2 style="color:var(--clr-white);font-size:clamp(1.6rem,3vw,2.2rem);">Numbers That Reflect Real Lives Changed</h2>
+        <div class="impact-banner__grid">
+          <div><div class="impact-num"><span data-target="54" data-suffix="M+">0</span></div><div class="impact-lbl">People in target population</div></div>
+          <div><div class="impact-num"><span data-target="8000" data-suffix="+">0</span></div><div class="impact-lbl">CHW partners trained</div></div>
+          <div><div class="impact-num"><span data-target="47" data-suffix="">0</span></div><div class="impact-lbl">Counties in deployment roadmap</div></div>
+          <div><div class="impact-num"><span data-target="70" data-suffix="%">0</span></div><div class="impact-lbl">Reduction in documentation time</div></div>
+          <div><div class="impact-num"><span data-target="12" data-suffix="">0</span></div><div class="impact-lbl">Active AI product features</div></div>
+          <div><div class="impact-num"><span data-target="3" data-suffix="">0</span></div><div class="impact-lbl">Languages supported</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="section-header--center mb-48 reveal">
+        <p class="section-eyebrow"><i class="fa-solid fa-star"></i> Our Values</p>
+        <h2 class="section-title">What We Stand For</h2>
+        <p class="section-sub">Five principles that guide every product decision, every model deployment, and every community engagement AfyaTech undertakes.</p>
+      </div>
+      <div class="grid-3">
+        <div class="value-card reveal" data-delay="0">
+          <div class="value-icon" style="background:#E1F5EE;color:var(--clr-secondary);"><i class="fa-solid fa-heart"></i></div>
+          <h3 style="margin-bottom:10px;">Patient First</h3>
+          <p style="font-size:.92rem;">Every feature, every model choice, every governance policy starts with one question: does this improve patient outcomes? If the answer is uncertain, we wait.</p>
+        </div>
+        <div class="value-card reveal" data-delay="100">
+          <div class="value-icon" style="background:#FDF0D0;color:#6B4B00;"><i class="fa-solid fa-scale-balanced"></i></div>
+          <h3 style="margin-bottom:10px;">Radical Equity</h3>
+          <p style="font-size:.92rem;">We audit AI performance across gender, geography, and socioeconomic group. If our tools work better for urban patients than rural ones, we fix it before we ship.</p>
+        </div>
+        <div class="value-card reveal" data-delay="200">
+          <div class="value-icon" style="background:#E6F1FB;color:#0C447C;"><i class="fa-solid fa-eye"></i></div>
+          <h3 style="margin-bottom:10px;">Transparency</h3>
+          <p style="font-size:.92rem;">Patients always know when AI is involved in their care. Clinicians are never permitted to present AI output as their own independent judgment.</p>
+        </div>
+        <div class="value-card reveal" data-delay="0">
+          <div class="value-icon" style="background:#FBEAF0;color:#72243E;"><i class="fa-solid fa-user-shield"></i></div>
+          <h3 style="margin-bottom:10px;">Data Sovereignty</h3>
+          <p style="font-size:.92rem;">Patient data is stored on Kenya-domiciled servers. We do not sell or share patient data. Patients can download or delete their full records at any time.</p>
+        </div>
+        <div class="value-card reveal" data-delay="100">
+          <div class="value-icon" style="background:#E1F5EE;color:var(--clr-secondary);"><i class="fa-solid fa-person-circle-check"></i></div>
+          <h3 style="margin-bottom:10px;">Human Oversight</h3>
+          <p style="font-size:.92rem;">AI provides decision support. A licensed clinician makes and owns the final decision — always. No automated high-stakes clinical action without human sign-off.</p>
+        </div>
+        <div class="value-card reveal" data-delay="200">
+          <div class="value-icon" style="background:#FDF0D0;color:#6B4B00;"><i class="fa-solid fa-globe-africa"></i></div>
+          <h3 style="margin-bottom:10px;">African-Built</h3>
+          <p style="font-size:.92rem;">Our models are trained on locally-sourced, ethically-consented Kenyan health data. We partner with county hospitals to build representative training corpora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:64px;align-items:start;">
+        <div class="reveal">
+          <p class="section-eyebrow"><i class="fa-solid fa-clock-rotate-left"></i> Our Journey</p>
+          <h2 class="section-title">From Prototype to Platform</h2>
+          <p class="mb-32">Six years of iteration, community listening, and clinical partnership — building toward a future where every Kenyan has access to quality healthcare guidance.</p>
+          <div class="milestones">
+            <div class="milestone"><div class="milestone__year">2017</div><div><div class="milestone__title">Founded in Nairobi</div><div class="milestone__text">SMS-based CHW assistant launched in Kisumu County with 50 health workers.</div></div></div>
+            <div class="milestone"><div class="milestone__year">2019</div><div><div class="milestone__title">AI Clinical Documentation</div><div class="milestone__text">First SOAP note generation AI goes live, reducing documentation time by 60%.</div></div></div>
+            <div class="milestone"><div class="milestone__year">2021</div><div><div class="milestone__title">Multilingual Platform</div><div class="milestone__text">Swahili and Kikuyu language models integrated. Patient education reach triples.</div></div></div>
+            <div class="milestone"><div class="milestone__year">2023</div><div><div class="milestone__title">Triage Agent Pilot</div><div class="milestone__text">WHO IMCI-based triage AI deployed in 5 counties with real-time clinician alerts.</div></div></div>
+            <div class="milestone"><div class="milestone__year">2025</div><div><div class="milestone__title">Full Agent Network</div><div class="milestone__text">Five-agent orchestration pipeline integrating intake, triage, clinical support, CHW field support, and patient follow-up.</div></div></div>
+            <div class="milestone"><div class="milestone__year">2027</div><div><div class="milestone__title">National Scale</div><div class="milestone__text">Target: all 47 counties covered. AfyaTech AI Ethics Charter published. Contributing to Kenya National AI in Health Policy.</div></div></div>
+          </div>
+        </div>
+        <div class="reveal" data-delay="150">
+          <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=900&q=80" alt="Medical team collaboration" loading="lazy" style="width:100%;height:600px;object-fit:cover;border-radius:var(--radius-xl);" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section bg-light" id="team">
+    <div class="container">
+      <div class="section-header--center mb-48 reveal">
+        <p class="section-eyebrow"><i class="fa-solid fa-users"></i> Our Team</p>
+        <h2 class="section-title">Clinicians, Engineers, and Public Health Experts</h2>
+        <p class="section-sub">AfyaTech is built by people who have worked in Kenya's health system — and who understand what both clinicians and patients truly need.</p>
+      </div>
+      <div class="grid-4">
+        <div class="team-card reveal" data-delay="0">
+          <div class="team-card__img"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80" alt="Dr. Wanjiku Maina" loading="lazy" /></div>
+          <div class="team-card__body">
+            <div class="team-card__name">Dr. Wanjiku Maina</div>
+            <div class="team-card__role">Co-Founder & CEO</div>
+            <div class="team-card__bio">Physician and public health specialist with 15 years in Kenya's health system. Previously MOH's Director of Digital Health.</div>
+            <div class="team-card__socials">
+              <a href="#" class="team-card__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="team-card__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card reveal" data-delay="100">
+          <div class="team-card__img"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&q=80" alt="Kelvin Ochieng" loading="lazy" /></div>
+          <div class="team-card__body">
+            <div class="team-card__name">Kelvin Ochieng</div>
+            <div class="team-card__role">Co-Founder & CTO</div>
+            <div class="team-card__bio">ML engineer and Swahili NLP researcher. Built Kenya's first locally-trained biomedical language model at University of Nairobi.</div>
+            <div class="team-card__socials">
+              <a href="#" class="team-card__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="team-card__social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card reveal" data-delay="200">
+          <div class="team-card__img"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80" alt="Dr. Amina Hussain" loading="lazy" /></div>
+          <div class="team-card__body">
+            <div class="team-card__name">Dr. Amina Hussain</div>
+            <div class="team-card__role">Chief Medical Officer</div>
+            <div class="team-card__bio">Paediatrician and IMCI specialist. Chairs AfyaTech's AI Ethics Board and ensures all clinical tools meet Kenya Medical Practitioners standards.</div>
+            <div class="team-card__socials">
+              <a href="#" class="team-card__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="team-card__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card reveal" data-delay="300">
+          <div class="team-card__img"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&q=80" alt="Grace Mutua" loading="lazy" /></div>
+          <div class="team-card__body">
+            <div class="team-card__name">Grace Mutua</div>
+            <div class="team-card__role">Head of Partnerships</div>
+            <div class="team-card__bio">Community health programme specialist with experience deploying digital health tools across 12 sub-Saharan African countries.</div>
+            <div class="team-card__socials">
+              <a href="#" class="team-card__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="team-card__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container" style="position:relative;z-index:2;text-align:center;">
+      <p class="section-eyebrow" style="justify-content:center;color:var(--clr-accent);"><i class="fa-solid fa-handshake"></i> Partner With Us</p>
+      <h2 class="section-title section-title--white mb-16">Join the AfyaTech Community</h2>
+      <p class="section-sub section-sub--white mb-32" style="margin:0 auto 32px;">We are actively partnering with county health departments, NGOs, hospital networks, and research institutions across East Africa.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn--gold"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+        <a href="services.html" class="btn btn--outline"><i class="fa-solid fa-grid-2"></i> Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Afya<span style="color:var(--clr-accent);">Tech</span></div>
+          <p>AI-powered healthcare for East Africa. Bridging the gap between communities and quality clinical care — one interaction at a time.</p>
+          <div class="footer__socials" style="margin-top:24px;">
+            <a href="#" class="footer__social" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="footer__social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer__social" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="footer__social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Company</p>
+          <a href="about.html"   class="footer__link">About AfyaTech</a>
+          <a href="about.html#team" class="footer__link">Our Team</a>
+          <a href="contact.html" class="footer__link">Careers</a>
+          <a href="contact.html" class="footer__link">Press</a>
+        </div>
+        <div>
+          <p class="footer__col-title">Solutions</p>
+          <a href="services.html" class="footer__link">Clinical Documentation</a>
+          <a href="services.html" class="footer__link">Triage AI</a>
+          <a href="services.html" class="footer__link">Patient Education</a>
+          <a href="services.html" class="footer__link">CHW Support</a>
+        </div>
+        <div>
+          <p class="footer__col-title">Resources</p>
+          <a href="strategy.html" class="footer__link">AI Strategy</a>
+          <a href="strategy.html" class="footer__link">Ethics Charter</a>
+          <a href="contact.html"  class="footer__link">Documentation</a>
+          <a href="contact.html"  class="footer__link">Contact</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 AfyaTech Ltd. Registered in Nairobi, Kenya. All rights reserved.</p>
+        <div style="display:flex;gap:24px;">
+          <a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Privacy Policy</a>
+          <a href="#" style="font-size:.82rem;color:rgba(255,255,255,.35);">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
