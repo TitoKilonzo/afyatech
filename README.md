@@ -411,4 +411,4 @@ For questions about deployment or customisation, reach out via the course platfo
 
 ---
 
-*Built with ❤️ in Nairobi · AI Safari Capstone 2025*
+*Built with ❤️ in Nairobi · AI Safari Capstone 2026*
