@@ -252,18 +252,19 @@ vercel
 ```json
 {
   "version": 2,
-  "builds": [{ "src": "**/*.html", "use": "@vercel/static" }],
   "routes": [
-    { "src": "/",         "dest": "/index.html" },
     { "src": "/about",    "dest": "/about.html" },
     { "src": "/services", "dest": "/services.html" },
     { "src": "/strategy", "dest": "/strategy.html" },
     { "src": "/contact",  "dest": "/contact.html" },
+    { "handle": "filesystem" },
     { "src": "/(.*)",     "dest": "/$1" }
   ]
 }
 ```
 This enables clean URLs (`/about` instead of `/about.html`) and proper routing.
+
+> ⚠️ **Important:** Do NOT add a `"builds"` array to this config. Using `"builds": [{ "src": "**/*.html" }]` tells Vercel to only serve `.html` files — it will block `css/` and `js/` from being delivered, causing the site to appear completely unstyled. The config above omits `builds` entirely so Vercel auto-detects the project as a static site and serves all file types correctly.
 
 ---
 
