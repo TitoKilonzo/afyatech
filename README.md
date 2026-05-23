@@ -300,6 +300,41 @@ Add `netlify` attribute to the form tag:
 
 ---
 
+## 💬 WhatsApp Floating Widget
+
+A floating WhatsApp chat button appears on every page, bottom-right corner.
+
+**Files:**
+| File | Purpose |
+|---|---|
+| `css/whatsapp.css` | Widget styles — panel, FAB button, pulse ring, tooltip, animations |
+| `js/whatsapp.js` | Widget logic — toggle, auto-open, greeting, WA deep link |
+
+**Phone number:** `+254 743 336 009` (set in `js/whatsapp.js` → `WA_NUMBER`)
+
+**Behaviour:**
+- **FAB button** — Green circular button (bottom-right). Click to open/close panel
+- **Pulse ring** — Animated ring draws attention on page load
+- **Tooltip** — "Chat with us!" bubble appears for 5 seconds on first load, then hides
+- **Chat panel** — Opens with a time-aware greeting (Good morning/afternoon/evening), AfyaTech branding, and a "Chat on WhatsApp" button
+- **Auto-open** — Panel opens automatically after **8 seconds** on the user's first visit (tracked via `sessionStorage` so it only fires once per browser session)
+- **Keyboard** — Press `Escape` to close the panel
+- **Deep link** — Clicking "Chat on WhatsApp" opens `wa.me/254743336009` with a pre-filled message in a new tab
+
+**To change the phone number:** open `js/whatsapp.js` and edit:
+```js
+const WA_NUMBER = '254743336009'; // ← update here (digits only, no + or spaces)
+```
+
+**To change the pre-filled message:** edit:
+```js
+const WA_MESSAGE = encodeURIComponent('Your custom message here');
+```
+
+**To disable auto-open:** remove or comment out the `setTimeout(openPanel, 8000)` block at the bottom of `js/whatsapp.js`.
+
+---
+
 ## 📦 External Dependencies
 
 All loaded via CDN — no npm install required.
@@ -375,4 +410,4 @@ For questions about deployment or customisation, reach out via the course platfo
 
 ---
 
-*Built with ❤️ in Nairobi · AI Safari Capstone 2026*
+*Built with ❤️ in Nairobi · AI Safari Capstone 2025*

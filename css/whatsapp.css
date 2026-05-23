@@ -1,0 +1,236 @@
+/* ============================================================
+   AfyaTech — WhatsApp Floating Widget
+   ============================================================ */
+
+.wa-widget {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* Bubble / Chat panel */
+.wa-panel {
+  width: 320px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18);
+  overflow: hidden;
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+  transform-origin: bottom right;
+}
+.wa-panel.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Panel header */
+.wa-panel__head {
+  background: #075E54;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wa-panel__avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #128C7E;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.wa-panel__name {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 2px;
+  font-family: 'DM Sans', sans-serif;
+}
+.wa-panel__status {
+  font-size: .75rem;
+  color: rgba(255,255,255,.7);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Sans', sans-serif;
+}
+.wa-panel__status::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #25D366;
+  display: inline-block;
+}
+.wa-panel__close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.7);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color .2s;
+}
+.wa-panel__close:hover { color: #fff; }
+
+/* Chat area */
+.wa-panel__body {
+  background: #ECE5DD;
+  padding: 20px 16px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5b8aa' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.wa-msg {
+  background: #fff;
+  border-radius: 8px 8px 8px 2px;
+  padding: 10px 14px 6px;
+  max-width: 86%;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  align-self: flex-start;
+  position: relative;
+}
+.wa-msg::before {
+  content: '';
+  position: absolute;
+  left: -7px; top: 0;
+  border: 8px solid transparent;
+  border-top-color: #fff;
+  border-right-color: #fff;
+}
+.wa-msg p {
+  font-size: .88rem;
+  color: #111;
+  line-height: 1.5;
+  margin: 0 0 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+.wa-msg__time {
+  font-size: .7rem;
+  color: #999;
+  text-align: right;
+  display: block;
+}
+
+/* CTA row */
+.wa-panel__footer {
+  padding: 14px 16px 18px;
+  background: #fff;
+}
+.wa-panel__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px;
+  background: #25D366;
+  color: #fff;
+  font-size: .93rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.wa-panel__cta:hover {
+  background: #1DA851;
+  transform: translateY(-1px);
+}
+.wa-panel__cta i { font-size: 1.1rem; }
+
+/* FAB toggle button */
+.wa-fab {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,.45);
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+  flex-shrink: 0;
+}
+.wa-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,.55);
+}
+.wa-fab i {
+  font-size: 1.6rem;
+  color: #fff;
+  position: absolute;
+  transition: opacity .2s, transform .2s;
+}
+.wa-fab .fa-whatsapp  { opacity: 1;  transform: scale(1) rotate(0deg); }
+.wa-fab .fa-xmark     { opacity: 0;  transform: scale(0.5); }
+.wa-fab.active .fa-whatsapp { opacity: 0;  transform: scale(0.5); }
+.wa-fab.active .fa-xmark    { opacity: 1;  transform: scale(1); }
+
+/* Pulse ring */
+.wa-fab::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  animation: wa-pulse 2.2s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1); opacity: .6; }
+  70%  { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Tooltip on first load */
+.wa-tooltip {
+  position: absolute;
+  right: 70px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background: #fff;
+  color: #075E54;
+  font-size: .8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.12);
+  white-space: nowrap;
+  pointer-events: none;
+  font-family: 'DM Sans', sans-serif;
+  animation: wa-tooltip-in .4s ease .8s both;
+}
+.wa-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px; top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #fff;
+}
+@keyframes wa-tooltip-in {
+  from { opacity: 0; transform: translateY(50%) translateX(-6px); }
+  to   { opacity: 1; transform: translateY(50%) translateX(0); }
+}
+.wa-tooltip.hidden { display: none; }
+
+@media (max-width: 480px) {
+  .wa-widget { bottom: 18px; right: 16px; }
+  .wa-panel  { width: calc(100vw - 32px); }
+}
